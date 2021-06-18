@@ -10,16 +10,42 @@
     <div></div>
     <div></div>
 <script>
-//数组去重
-        var arr=[12,5,9,78,36,"你",12,"你",0,9,12,"我","hello"]//思路：1.逐个选取出数组里的每个数 2.让其他的数据和这个被选出的数进行逐个对比
-        for(i=0;i<arr.length;i++){                            //如果两者相等，则删除那个数。
-            for(j=i+1;j<arr.length;j++){
-                if(arr[i]==arr[j]){ 
-                    arr.splice(j,1)
-                    j--                                      //当条件成立，数据被删除之后，数组长度和数据角标会发生变化，此时J++会导致跳过一个数据，用j--抵消。
-                 }
-            }
-         }
-
+// 数组去重
+        // var arr=[12,5,9,78,36,"你",12,"你",0,9,12,"我","hello"]//思路：1.逐个选取出数组里的每个数 2.让其他的数据和这个被选出的数进行逐个对比
+        // for(i=0;i<arr.length;i++){                            //如果两者相等，则删除那个数。
+        //     for(j=i+1;j<arr.length;j++){
+        //         if(arr[i]==arr[j]){ 
+        //             arr.splice(j,1)
+        //             j--                                      //当条件成立，数据被删除之后，数组长度和数据角标会发生变化，此时J++会导致跳过一个数据，用j--抵消。
+        //         }
+        //     }
+        // }
+        //或 另一个思路  反向去重 不用j--
+        // var arr=[12,5,9,9,9,9,78,36,"你",12,"你",0,9,12,"我","hello"]
+        // for(i=arr.length-1;i>=0;i--){
+        //     for(j=i-1;j>=0;j--){
+        //         if(arr[i]==arr[j]){
+        //             arr.splice(j,1)
+        //         }
+        //     }
+        // }
+        // console.log(arr)
+        //或 另一个思路 建立一个空数组，对空数组进行查找原数组的每个数据，如果找不到，那么对空数组添加那个找不到的数据。
+        // var arr=[12,5,9,9,9,9,78,36,"你",12,"你",0,9,12,"我","hello"]
+        // var emptyArr=[]
+        // for(i=0;i<arr.length;i++){
+        //     if(emptyArr.indexOf(arr[i])==-1){
+        //         emptyArr.push(arr[i])
+        //     }
+        // }
+        // console.log(emptyArr)
+        //或
+        //使用过滤
+        //var arr=[12,5,9,9,9,9,78,36,"你",12,"你",0,9,12,"我","hello"] //利用indexOf方法只检索数组中第一个出现的item的检索值特性
+        //var arr=arr.filter(function(item,index){                      //当当前item的检索值与indexOf(item)的检索值相等时，数据才会被留下
+        //    return arr.indexOf(item)==index
+        //})
+        //console.log(arr)
 </script>
 </body>
+</html>
