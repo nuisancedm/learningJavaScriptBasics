@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        table{border: solid 1px;border-collapse: collapse;width: 500px;}
+        td{border: 1px black solid;}
+
+    </style>
+</head>
+<body>
+    <table class="infoList"></table>
+    <script>
+        //一个动态表格，根据数据自动生成信息表格
+        
+        //假设是后端返回的数据 模拟json格式 可以随意更改
+        var data=[
+            {name:"Mike",age:18,salary:1800},
+            {name:"David",age:23,salary:2200},
+            {name:"Jerod",age:19,salary:2800},
+            {name:"Sam",age:33,salary:3000},
+            {name:"Jefflin",age:24,salary:3000},
+            {name:"Lee",age:19,salary:4800},
+            {name:"Sakamoto",age:20,salary:3800},
+        ]
+
+        //创建表头
+        var table=document.getElementsByClassName("infoList")[0]//获取<table>对象
+        var tr=document.createElement("tr")     //创建行对象 tr
+        table.appendChild(tr)                   //把创建的tr对象添加到table内部
+        for(var key in data[0]){                //使用for循环添加单元格元素
+            var td=document.createElement("td") //创建td元素
+            td.innerHTML=key                    //td对象内容设定为data[0]对象的属性
+            tr.appendChild(td)                  //把td对象放入tr内部                  
+        }
+        //添加信息行
+        for(i=0;i<data.length;i++){             //使用for循环来添加不确定数量的行数
+            var tr=document.createElement("tr") //创建行对象 tr
+            table.appendChild(tr)               //和上面一样把tr放进table里
+            for(var key in data[i]){            //嵌套一个for循环用来给行加单元格
+               var td=document.createElement("td") // 创建td元素
+               tr.appendChild(td)                  // 把td放进tr内
+               td.innerHTML=data[i][key]           // 把td的内容设置为对象循环的属性值
+            }
+        }
+
+
+        
+        
+        
+
+
+    </script>
+</body>
+</html>
