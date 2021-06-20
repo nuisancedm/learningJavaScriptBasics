@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .wrap{text-align: left;}
+        #passwordInput{margin-left:32px;}
+        #usernameInput{margin-left: 16px;}
+        span{color: red;display: none;}
+        #register{width: 80px;height: 30px;text-align: center;border: solid black 1px;margin-top: 20px;padding-top: 5px;border-radius: 3px;}
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="title"></div>
+        <div id="username">用户名: <input type="text" id="usernameInput"> <span id="userTip">用户名格式不正确</span></div>
+        <div id="password">密码: <input type="password" id="passwordInput"> <span id="psdTip">密码格式不正确</span></div>
+        <div id="confirm">确认密码: <input type="password" id="confirmInput"> <span id="confirmTip">两次输入密码不一致</span></div>
+        <div id="register">确认注册</div>
+    </div>
+    
+    <script>
+        var username=document.getElementById("usernameInput")
+        var psd=document.getElementById("passwordInput")
+        var psdconfirm=document.getElementById("confirmInput")
+        var userTip=document.getElementById("userTip")
+        var psdTip=document.getElementById("psdTip")
+        var psdconfirmTip=document.getElementById("confirmTip")
+        var userReg=/^\w{4,8}$/
+        var psdReg=/^\d{6,8}$/
+        var register=document.getElementById("register")
+        
+        function check(value,reg,tip){
+            if(reg.test(value)){
+                tip.style.display="none"
+            }
+            else{
+                tip.style.display="inline"
+            }
+        }
+        function psdCheck(value1,value2,tip){
+            if (value1==value2) {
+                tip.style.display="none"
+            }
+            else{tip.style.display="inline"}
+        }
+
+
+        username.onblur=function(){
+            check(username.value,userReg,userTip)
+        }
+        psd.onblur=function(){
+            check(psd.value,psdReg,psdTip)
+            psdCheck(psdconfirm.value,psd.value,psdconfirmTip)
+        }
+        psdconfirm.onblur=function(){
+            psdCheck(psdconfirm.value,psd.value,psdconfirmTip)
+        }
+
+        register.onclick=function(){
+            if (userReg.test(username.value)&&psdReg.test(psd.value)&&psd.value==psdconfirm.value) {
+                alert("注册成功！")
+            }
+            else{
+                alert("请正确填写注册信息！")
+            }
+        }
+        
+
+    </script>
+</body>
+</html>
