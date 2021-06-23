@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">获取验证码</button>
+    <script>
+       var btn=document.getElementById("btn")
+       var timer=null
+       var n=5
+       function countdown(){
+            if (n>0) {
+                n--
+                btn.innerHTML=n+"s后获取验证码"
+            }else{
+                clearInterval(timer)
+                timer=null
+                btn.innerHTML="获取验证码"
+                n=5
+                btn.removeAttribute("disabled")
+            }
+            
+       }
+
+       btn.onclick=function(){
+        timer=setInterval(countdown,1000)
+        btn.disabled=true
+       }
+    </script>
+</body>
+</html>
