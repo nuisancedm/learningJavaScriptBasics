@@ -56,8 +56,10 @@
         }
         psd.onblur=function(){
             check(psd.value,psdReg,psdTip)
-            psdCheck(psdconfirm.value,psd.value,psdconfirmTip)
-        }
+            if (psdconfirm.value) {
+                psdCheck(psdconfirm.value,psd.value,psdconfirmTip)
+            }
+            
         psdconfirm.onblur=function(){
             psdCheck(psdconfirm.value,psd.value,psdconfirmTip)
         }
