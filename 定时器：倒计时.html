@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Document</title>
+</head>
+<body>
+    <div id=clock></div>
+    <script>
+        var clock=document.getElementById("clock")
+        var timer=null
+        var target=new Date("2021-6-24 5:10:00")
+        function countdown(){
+            var now=new Date()
+            var ms=target-now
+            if (ms>0) {
+                var d=Math.floor(ms/1000/60/60/24)
+                d=d<10?"0"+d:d
+                var h=Math.floor((ms-d*24*60*60*1000)/1000/60/60)
+                h=h<10?"0"+h:h
+                var m=Math.floor((ms-d*24*60*60*1000-h*60*60*1000)/1000/60)
+                m=m<10?"0"+m:m
+                var s=Math.floor((ms-d*24*60*60*1000-h*60*60*1000-m*60*1000)/1000)
+                s=s<10?"0"+s:s
+                clock.innerHTML="距离目标日期还有"+d+"天"+h+"小时"+m+"分钟"+s+"秒"
+            }
+            else{
+                clearInterval(timer)
+                timer=null
+                clock.innerHTML="时辰已到！"
+            }
+            
+            
+        }
+
+
+
+
+
+        timer=setInterval(countdown,1000)
+    </script>
+</body>
+</html>
