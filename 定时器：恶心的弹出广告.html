@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #adv {
+            width: 500px;
+            height: 400px;
+            background: lightpink;
+            position: fixed;
+            right: 0;
+            bottom: -400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="adv">
+        <div id="closeBtn">关闭</div>
+    </div>
+    <script>
+        var adv = document.getElementById("adv");
+        var closeBtn = document.getElementById("closeBtn");
+
+        var timerStart = null
+        var timer = null
+
+
+        function start() {
+            timer = setInterval(moveUp, 10)
+        }
+
+        //弹出方法 
+        function moveUp() {
+            var advStyle = document.defaultView.getComputedStyle(adv, null)
+            var bottom = parseInt(advStyle.bottom)
+            if (bottom < 0) {
+                bottom += 2
+                adv.style.bottom = bottom + "px"
+            }
+            else {
+                clearInterval(timer)
+                timer = null
+
+            }
+
+            var index = false
+        }
+
+        //关闭方法 （关闭再次执行弹出）
+        function moveDown() {
+            var advStyle = document.defaultView.getComputedStyle(adv, null)
+            var bottom = parseInt(advStyle.bottom)
+            if (bottom > -400) {
+                bottom -= 2
+                adv.style.bottom = bottom + "px"
+            }
+            else {
+                clearInterval(timer)
+                timer = null
+                setTimeout(start, 3000)
+
+            }
+        }
+
+
+
+        closeBtn.onclick = function () {
+            if (timer == null) {
+                timer = setInterval(moveDown, 10)
+            }
+
+        }
+
+        timerStart = setTimeout(start, 2000)
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
