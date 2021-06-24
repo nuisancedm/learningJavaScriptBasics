@@ -46,12 +46,12 @@
         var tags=document.getElementsByClassName("tag")
         var news=document.getElementsByClassName("news")
         for(var i=0;i<tags.length;i++){
-            tags[i].index=i
+            tags[i].index=i //给tags数组里的每一项添加一个新的属性，属性的值等于当前对象在数组中的索引值，用途是为了让tag和news一一对应
             tags[i].onclick=function(){
                 for(var j=0;j<news.length;j++){
                     news[j].style.display="none"
                 }
-                news[this.index].style.display="block"
+                news[this.index].style.display="block" //此处news的索引值来自于上面给tag添加的属性
             }
         }
     </script>
