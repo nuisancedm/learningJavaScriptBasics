@@ -60,7 +60,7 @@
             else {
                 clearInterval(timer)
                 timer = null
-                setTimeout(start, 3000)
+                setTimeout(start, 3000)  //恶心人的关键在这行，当点击关闭adv的bottom属性降低到-400px3秒之后，让页面再次执行一次性定时器让广告弹出，永远都关不掉
 
             }
         }
