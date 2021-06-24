@@ -27,15 +27,16 @@
         var timerStart = null
         var timer = null
 
-
+        timerStart = setTimeout(start, 2000)
+        
         function start() {
             timer = setInterval(moveUp, 10)
         }
 
         //弹出方法 
         function moveUp() {
-            var advStyle = document.defaultView.getComputedStyle(adv, null)
-            var bottom = parseInt(advStyle.bottom)
+            var advStyle = document.defaultView.getComputedStyle(adv, null) //此行代码可以获取到adv对象的全部样式，全部。
+            var bottom = parseInt(advStyle.bottom) 
             if (bottom < 0) {
                 bottom += 2
                 adv.style.bottom = bottom + "px"
@@ -44,11 +45,15 @@
                 clearInterval(timer)
                 timer = null
 
-            }
-
-            var index = false
+            }     
         }
 
+        closeBtn.onclick = function () {
+            if (timer == null) {                                  //if判断timer定时器是否在被占用，如果有，不执行下面的代码。意义是可以防止弹窗“既上升又下降”
+                timer = setInterval(moveDown, 10)                 //原因是当timer的值不为null时，弹窗一定在使用timer定时器进行上升，当上升结束时timer才被释放，
+            }                                                     //此时执行moveDown，弹窗才能正常下降
+        }
+        
         //关闭方法 （关闭再次执行弹出）
         function moveDown() {
             var advStyle = document.defaultView.getComputedStyle(adv, null)
@@ -60,21 +65,16 @@
             else {
                 clearInterval(timer)
                 timer = null
-                setTimeout(start, 3000)  //恶心人的关键在这行，当点击关闭adv的bottom属性降低到-400px3秒之后，让页面再次执行一次性定时器让广告弹出，永远都关不掉
+                setTimeout(start, 3000)  //恶心人的关键在这行，当点击关闭，adv的bottom属性降低到-400px3秒之后，让页面再次执行一次性定时器让广告弹出，永远都关不掉
 
             }
-        }
+        }                                //我被关掉啦！哎~我又出来啦！我又被关掉啦！哎！我又出来啦~你气不气
 
 
 
-        closeBtn.onclick = function () {
-            if (timer == null) {
-                timer = setInterval(moveDown, 10)
-            }
+        
 
-        }
-
-        timerStart = setTimeout(start, 2000)
+        
 
 
 
