@@ -1,14 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
     <style>
-        .d1{width: 200px;height: 150px;background: red;margin: auto;padding-top: 50px;}
-        .d2{width: 100px;height: 75px;background: blue;margin: auto;padding-top: 25px;}
-        .d3{width: 50px;height: 50px;background: yellow;margin: auto;}
+        .d1 {
+            width: 200px;
+            height: 150px;
+            background: red;
+            margin: auto;
+            padding-top: 50px;
+        }
+
+        .d2 {
+            width: 100px;
+            height: 75px;
+            background: blue;
+            margin: auto;
+            padding-top: 25px;
+        }
+
+        .d3 {
+            width: 50px;
+            height: 50px;
+            background: yellow;
+            margin: auto;
+        }
     </style>
 </head>
+
 <body>
     <div class="d1">
         <div class="d2">
@@ -16,15 +37,34 @@
         </div>
     </div>
     <script>
-    var divs=document.getElementsByTagName("div")
-        for(i=0;i<divs.length;i++){
-            divs[i].onclick=function(){
-                this.style.background="pink";
-                alert(this.className)
-                this.style.background=""
-            }
-        }
+        var divs=document.getElementsByTagName("div")                //事件触发周期：事件捕获（外—里）--目标触发—事件冒泡（里--外）
+        
+        for(i=0;i<divs.length;i++){                                  //使用非Chrome浏览器打开
+            divs[i].onclick=function(e){                             //在这个案例中，点击黄色块的事件触发周期是:
+                // e.stopPropagation() //取消注释此行可以阻止冒泡
+                this.style.background="pink";                               //事件捕获：从外到里，依次捕获到红色块，蓝色块，和黄色块
+                alert(this.className);                                      //目标触发：黄色块变成粉色，弹出d3，点击确认
+                this.style.background="" ;                                  //事件冒泡：从里到外，依次执行蓝色块和红色块
+                
+
+            }                                                               //注意！当事件冒泡的时候，this的指向会随着冒泡而改变，不在指代一开始所点击色块
+        }                                                                   //如果不想this的指代方向改变，可以使用e.target 事件源代替this指代。
+  
+//-------------------------------------------------------分割线----------------------------------------------------------------------
+        
+
+
+        //下述代码使用addEventListener来给元素绑定事件 
+        //  for (i = 0; i < divs.length; i++) {                         //addEventListener的第三个参数的意义是 是否允许事件在捕获阶段触发
+        //     function act() {                                         //如果改为true，那么事件就会在事件被捕获的同时被触发
+        //         this.style.background = "pink";                      //此时点击黄色块，会依次执行红色块，蓝色块，黄色块
+        //         alert(this.className);                                //能更好的帮助理解事件捕获与事件冒泡
+        //         this.style.background = "";
+        //     }
+        //     divs[i].addEventListener("click",act, true)
+        // }
 
     </script>
 </body>
+
 </html>
