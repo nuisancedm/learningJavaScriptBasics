@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .d1{width: 200px;height: 150px;background: red;margin: auto;padding-top: 50px;}
+        .d2{width: 100px;height: 75px;background: blue;margin: auto;padding-top: 25px;}
+        .d3{width: 50px;height: 50px;background: yellow;margin: auto;}
+    </style>
+</head>
+<body>
+    <div class="d1">
+        <div class="d2">
+            <div class="d3"></div>
+        </div>
+    </div>
+    <script>
+    var divs=document.getElementsByTagName("div")
+        for(i=0;i<divs.length;i++){
+            divs[i].onclick=function(){
+                this.style.background="pink";
+                alert(this.className)
+                this.style.background=""
+            }
+        }
+
+    </script>
+</body>
+</html>
