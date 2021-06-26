@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style></style>
+</head>
+
+<body>
+    <h1>我是一个线上项目</h1>                                                           <!--xampp开启服务器，menu里有黄焖鸡和麻辣烫-->
+    <input type="text" id="menu">
+    <div id="text"></div>
+    <script>
+        var menu = document.getElementById("menu")
+
+
+        menu.onblur = function () {
+                                                                                        //ajax
+                                                                                        //1.创建ajax核心对象
+            var xmlhttp = new XMLHttpRequest();
+                                                                                        //2.创建请求(请求方式,请求地址,是否异步)-----(get/post,"绝对路径",true)
+            xmlhttp.open("get", "demo.php?foodName="+menu.value, true)
+                                                                                        //3.发送请求参数 必须是key=value 形式的字符串 多个参数之间用&连接 key由后端规定
+                                                                                        //get请求 请求参数不能写在send里，要写在请求地址后面，以?连接 send里传null
+            xmlhttp.send(null)
+                                                                                        //如果请求方式为post需要设置请求头
+                                                                                        // xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+                                                                                        //4.接受响应
+                                                                                        //onreadystatechange对象，当readyState属性发生变化时，事件触发
+                                                                                        // readyState (请求的状态) 0(尚未初始化) 1(正在请求) 2(请求完毕) 3(正在响应) 4(响应完毕)
+                                                                                        //status(服务端返回的状态码) 404(找不到页面) 500(服务器崩溃) 200(ok) 301(请求转发) 304(请求缓存) etc.
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                                                                        //responseText属性 可以服务器端返回的文本格式的数据
+                    var data = xmlhttp.responseText
+                    console.log(data)
+                                                                                        //接下来就是dom操作了
+                    var text = document.getElementById("text")
+                    text.innerHTML = data
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
