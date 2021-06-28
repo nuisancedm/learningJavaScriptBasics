@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #city {
+            margin: auto;
+            display: block;
+            margin-bottom: 30px;
+        }
+
+        td {
+            border: solid 1px black;
+            text-align: center;
+        }
+
+        table {
+            border: solid 1px black;
+            border-collapse: collapse;
+            width: 1200px;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="city">
+    <table id="weatherInfo">
+
+    </table>
+
+
+    <script>
+        city.onblur = function () {
+            var weatherInfo = document.getElementById("weatherInfo");
+            weatherInfo.innerHTML = "" //更换城市时删除之前的表格
+            //请求数据
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("get", "https://restapi.amap.com/v3/weather/weatherInfo?key=eb6dbeb9b1baaf88764e8f29a81cd5c4&city=" + city.value + "&extensions=all", true);
+            xmlhttp.send(null);
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    var weatherData = JSON.parse(xmlhttp.responseText);
+                    if (weatherData.count == 1) {
+                        weatherData = JSON.parse(xmlhttp.responseText)
+
+
+                        //创建表头
+
+                        var tablehead = document.createElement("tr");
+                        weatherInfo.appendChild(tablehead);
+                        var headName = ["日期", "星期", "白天天气", "夜晚天气", "白天温度", "夜晚温度", "白天风向", "夜晚风向", "白天风力", "夜晚风力"]
+                        for (var n = 0; n < headName.length; n++) {
+                            var headtd = document.createElement("td");
+                            headtd.innerHTML = headName[n]
+                            tablehead.appendChild(headtd)
+                        }
+
+                        //创建信息行
+                        for (i = 0; i < weatherData.forecasts[0].casts.length; i++) {
+                            var forecastInfo = document.createElement("tr");
+                            weatherInfo.appendChild(forecastInfo);
+                            for (var infoKey in weatherData.forecasts[0].casts[i]) {
+                                var infoTd = document.createElement("td")
+                                infoTd.innerHTML = weatherData.forecasts[0].casts[i][infoKey]
+                                forecastInfo.appendChild(infoTd)
+
+                            }
+
+                        }
+
+                    }
+                    else {
+                        alert("请输入正确城市！")
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
