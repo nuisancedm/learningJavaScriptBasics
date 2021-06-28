@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <!--本demo使用xampp服务器-->
+    <select id="province">
+        <option>--请选择省份--</option>
+    </select>
+    <select id="city">
+        <option>--请选择城市--</option>
+    </select>
+    <select id="district">
+        <option>--请选择区域--</option>
+    </select>
+    
+    <script>
+        var province=document.getElementById("province");
+        var city=document.getElementById("city");
+        window.onload=function(){
+            var xmlhttp=new XMLHttpRequest();
+            xmlhttp.open("get","province.php",true);
+            xmlhttp.send(null);
+            xmlhttp.onreadystatechange=function(){
+                if (xmlhttp.readyState==4&&xmlhttp.status==200) {
+                    var provinces=xmlhttp.responseText;
+                    var provincesArr=provinces.split("，");
+                    console.log(provincesArr);
+                    for(var i=0;i<provincesArr.length;i++){
+                        var option=document.createElement("option");
+                        option.innerHTML=provincesArr[i];
+                        province.appendChild(option)
+                    }
+                }
+            }
+        }
+
+        province.onchange=function(){
+            city.innerHTML="<option>--请选择城市--</option>"
+            district.innerHTML="<option>--请选择区域--</option>"
+            //删除option可以使用循环方法，记得i--，但是代码太长了
+            // var options=city.getElementsByTagName("option")
+            // for(i=1;i<options.length;i++){
+            //     city.removeChild(options[i])
+            //     i--
+            // }
+
+            var xmlhttp=new XMLHttpRequest();
+            xmlhttp.open("get","city.php?provinceValue="+province.value,true);
+            xmlhttp.send();
+            xmlhttp.onreadystatechange=function(){
+                if (xmlhttp.readyState==4&&xmlhttp.status==200) {
+                    var cities=xmlhttp.responseText
+                    var citiesArr=cities.split("，")
+                    console.log(citiesArr)
+                    for(i=0;i<citiesArr.length;i++){
+                        var option=document.createElement("option");
+                        option.innerHTML=citiesArr[i]
+                        city.appendChild(option)
+                    }
+                    
+                    
+                }
+            }
+            
+        }
+        city.onchange=function(){
+            district.innerHTML="<option>--请选择区域--</option>"
+            var xmlhttp=new XMLHttpRequest();
+            xmlhttp.open("get","district.php?cityValue="+city.value,true);
+            xmlhttp.send();
+            xmlhttp.onreadystatechange=function(){
+                if (xmlhttp.readyState==4&&xmlhttp.status==200) {
+                    var districts=xmlhttp.responseText
+                    
+                    var districtsArr=districts.split("，")
+                    console.log(districtsArr)
+                    for(i=0;i<districtsArr.length;i++){
+                        var option=document.createElement("option");
+                        option.innerHTML=districtsArr[i]
+                        district.appendChild(option)
+                    }
+                    
+                    
+                }
+            }
+        
+        }
+            
+        
+
+        
+
+    </script>
+
+</body>
+</html>
