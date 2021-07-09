@@ -23,7 +23,7 @@
         )
 
         
-        
+        //封装函数
         alert2=()=>{
             var promise = new Promise((resolve, reject) => {
                 setTimeout(() => {
@@ -44,6 +44,8 @@
             return promise
         }
 
+        
+        //原始写法
         // promise.then((data)=>{
         //     return new Promise((resolve,reject)=>{
         //         setTimeout(() => {
